@@ -1,0 +1,18 @@
+meta {
+  name: saveIngredients
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:8080/pizzaland/ingredients
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "nom":"mozzarela",
+    "prix":0
+  }
+}
