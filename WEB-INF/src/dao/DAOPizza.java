@@ -15,5 +15,4 @@ public interface DAOPizza {
     public void delete(int id);
     public void saveIngredient(int id, int i);
     public void deleteIngredient(int id, int i);
-    public int finalPrice(int id);
 }

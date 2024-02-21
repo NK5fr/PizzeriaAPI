@@ -22,16 +22,26 @@ public class PizzaDAODatabase implements DAOPizza{
 
     @Override
     public List<PizzaGet> findAll() {
-        PreparedStatement ps = null;
+        PreparedStatement pizza = null;
+        PreparedStatement ingredients = null;
         List<PizzaGet> listePizzas = new ArrayList<>();
         try(Connection con = DS.getConnection()){
-            ps = con.prepareStatement("select * from pizzas join compose using(pno) join ingredients using(ino)");
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                listePizzas.add(null);
+            pizza = con.prepareStatement("select * from pizzas");
+            ResultSet rsp = pizza.executeQuery();
+            while(rsp.next()){
+                List<IngredientGet> listeIngredients = new ArrayList<>();
+                ingredients = con.prepareStatement("select ino, inom, prix from compose join ingredients using(ino) where pno = ?");
+                ingredients.setInt(1, rsp.getInt("pno"));
+                ResultSet rsi = ingredients.executeQuery();
+                while(rsi.next()){
+                    listeIngredients.add(new IngredientGet(rsi.getInt("ino"), rsi.getString("inom"), rsi.getInt("prix")));
+                }
+                PizzaGet pg = new PizzaGet(rsp.getInt("pno"), rsp.getString("pnom"), rsp.getString("pate"), rsp.getInt("prixBase"), listeIngredients);
+                listePizzas.add(pg);
             }
         }catch(Exception e){
-            System.out.println(ps);
+            System.out.println(pizza);
+            System.out.println(ingredients);
             System.out.println(e.getMessage());
         }
         return listePizzas;
@@ -39,8 +49,29 @@ public class PizzaDAODatabase implements DAOPizza{
 
     @Override
     public PizzaGet findById(int id) {
-        // TODO Auto-generated method stub
-        return null;
+        PreparedStatement pizza = null;
+        PreparedStatement ingredients = null;
+        PizzaGet pizzaGet = null;
+        try(Connection con = DS.getConnection()){
+            pizza = con.prepareStatement("select * from pizzas where pno = ?");
+            pizza.setInt(1, id);
+            ResultSet rsp = pizza.executeQuery();
+            rsp.next();
+            List<IngredientGet> listeIngredients = new ArrayList<>();
+            ingredients = con.prepareStatement("select ino, inom, prix from compose join ingredients using(ino) where pno = ?");
+            ingredients.setInt(1, id);
+            ResultSet rsi = ingredients.executeQuery();
+            while(rsi.next()){
+                listeIngredients.add(new IngredientGet(rsi.getInt("ino"), rsi.getString("inom"), rsi.getInt("prix")));
+            }
+            pizzaGet = new PizzaGet(rsp.getInt("pno"), rsp.getString("pnom"), rsp.getString("pate"), rsp.getInt("prixBase"), listeIngredients);
+            return pizzaGet;
+        }catch(Exception e){
+            System.out.println(pizza);
+            System.out.println(ingredients);
+            System.out.println(e.getMessage());
+        }
+        return pizzaGet;
     }
 
     @Override
@@ -59,12 +90,6 @@ public class PizzaDAODatabase implements DAOPizza{
     public void deleteIngredient(int id, int i) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'deleteIngredient'");
-    }
-
-    @Override
-    public int finalPrice(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'finalPrice'");
     }
 
     
