@@ -1,11 +1,15 @@
 meta {
   name: badRequestFindByIdIngredient
   type: http
-  seq: 6
+  seq: 1
 }
 
 get {
   url: http://localhost:8080/pizzaland/ingredients/1/rien
   body: none
   auth: none
+}
+
+docs {
+  Requête test: findByIdIngredient -> un mauvais format 
 }

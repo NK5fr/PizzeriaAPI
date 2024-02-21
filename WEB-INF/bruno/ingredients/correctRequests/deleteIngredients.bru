@@ -1,11 +1,15 @@
 meta {
   name: deleteIngredients
   type: http
-  seq: 5
+  seq: 4
 }
 
 delete {
   url: http://localhost:8080/pizzaland/ingredients/4
   body: none
   auth: none
+}
+
+docs {
+  Permet de supprimer un ingrédient en fournissant son ID
 }

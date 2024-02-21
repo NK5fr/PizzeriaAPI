@@ -1,0 +1,15 @@
+meta {
+  name: notFoundDeleteIngredients
+  type: http
+  seq: 3
+}
+
+delete {
+  url: http://localhost:8080/pizzaland/ingredients/999
+  body: none
+  auth: none
+}
+
+docs {
+  Requête test: deleteIngredient -> ingrédient n'existant pas dans la liste 
+}

@@ -1,7 +1,7 @@
 meta {
   name: saveIngredients
   type: http
-  seq: 4
+  seq: 5
 }
 
 post {
@@ -15,4 +15,8 @@ body:json {
     "nom":"mozzarela",
     "prix": 0
   }
+}
+
+docs {
+  Permet de créer un ingrédient en fournissant son "nom" (chaîne de caractères) et son "prix" (integer)
 }

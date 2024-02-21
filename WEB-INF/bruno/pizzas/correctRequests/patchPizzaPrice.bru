@@ -1,0 +1,17 @@
+meta {
+  name: patchPizzaPrice
+  type: http
+  seq: 6
+}
+
+patch {
+  url: http://localhost:8080/pizzaland/pizzas/1
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "prixBase": 20
+  }
+}
