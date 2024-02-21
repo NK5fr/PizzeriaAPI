@@ -1,0 +1,27 @@
+meta {
+  name: savePizzas
+  type: http
+  seq: 10
+}
+
+post {
+  url: 
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "nom": "reine",
+    "pate": "pate a pizza",
+    "prixBase": 15,
+    "ingredients": [
+      {
+        "id": 1
+      },
+      {
+        "id": 2
+      }
+    ]
+  }
+}
