@@ -25,6 +25,13 @@ create table compose(nom text , id int, constraint pk_compose primary key (nom, 
 constraint fk_nom foreign key (nom) references pizzas(nom) ON DELETE CASCADE ON UPDATE CASCADE, constraint fk_id foreign key (id) references ingredients(id) ON DELETE CASCADE ON UPDATE CASCADE);
 ```
 
+La table de gestion des utilisateurs s'appelle **utilisateurs**.
+Elle a pour clés primaire **id**.
+
+```sql
+create table utilisateurs(id serial, nom text, mdp text, token text, constraints pk_utilisateurs primary key (id));
+```
+
 ## REQUETES
 
 ### Ingredients
