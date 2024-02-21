@@ -1,0 +1,15 @@
+meta {
+  name: badRequestNoBodysaveIngredients
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:8080/pizzaland/ingredients
+  body: json
+  auth: none
+}
+
+docs {
+  Requête test: saveIngredient -> aucun corps
+}
