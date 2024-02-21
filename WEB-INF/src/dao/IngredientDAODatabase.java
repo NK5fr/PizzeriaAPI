@@ -20,7 +20,7 @@ public class IngredientDAODatabase implements DAOIngredient{
             ps = con.prepareStatement("select * from ingredients");
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                listeIngredients.add(new IngredientGet(rs.getInt("id"), rs.getString("nom"), rs.getInt("prix")));
+                listeIngredients.add(new IngredientGet(rs.getInt("ino"), rs.getString("nom"), rs.getInt("prix")));
             }
         }catch(Exception e){
             System.out.println(ps);
@@ -34,11 +34,11 @@ public class IngredientDAODatabase implements DAOIngredient{
         PreparedStatement ps = null;
         IngredientGet ingredient = null;
         try(Connection con = DS.getConnection()){
-            ps = con.prepareStatement("select * from ingredients where id = ?");
+            ps = con.prepareStatement("select * from ingredients where ino = ?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             rs.next();
-            return new IngredientGet(rs.getInt("id"), rs.getString("nom"), rs.getInt("prix"));
+            return new IngredientGet(rs.getInt("ino"), rs.getString("nom"), rs.getInt("prix"));
         }catch(Exception e){
             System.out.println(ps);
             System.out.println(e.getMessage());
@@ -64,7 +64,7 @@ public class IngredientDAODatabase implements DAOIngredient{
     public void delete(int id) {
         PreparedStatement ps = null;
         try(Connection con = DS.getConnection()){
-            ps = con.prepareStatement("delete from ingredients where id = ?");
+            ps = con.prepareStatement("delete from ingredients where ino = ?");
             ps.setInt(1, id);
             ps.executeUpdate();
         }catch(Exception e){

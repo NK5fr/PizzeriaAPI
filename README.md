@@ -6,23 +6,23 @@ La table de gestion des ingredient s'appelle **ingredients**.
 Elle a pour clé primaire **id**.
 
 ```sql
-create table ingredients(id serial , nom text, prix int, constraint pk_ingredients primary key (id));
+create table ingredients(ino serial , nom text, prix int, constraint pk_ingredients primary key (ino));
 ```
 
 La table de gestion des pizzas s'appelle **pizzas**.
-Elle a pour clé primaire **nom**.
+Elle a pour clé primaire **id**.
 
 ```sql
-create table pizzas(nom text , pate text, prixBase int, constraint pk_pizzas primary key (nom));
+create table pizzas(pno serial, nom text not null unique, pate text, prixBase int, constraint pk_pizzas primary key (pno));
 ```
 
 La table de gestion des ingrédients dans les pizzas s'appelle **compose**.
-Elle a pour clé primaire la paire **(nom, id)**.
-Elle a pour clés étrangères **nom** qui fait référence à **pizzas.nom** et **id** qui fait référence à **ingredients.id**.
+Elle a pour clé primaire la paire **(pno, ino)**.
+Elle a pour clés étrangères **pno** qui fait référence à **pizzas(pno)** et **ino** qui fait référence à **ingredients(ino)**.
 
 ```sql
-create table compose(nom text , id int, constraint pk_compose primary key (nom, id), 
-constraint fk_nom foreign key (nom) references pizzas(nom) ON DELETE CASCADE ON UPDATE CASCADE, constraint fk_id foreign key (id) references ingredients(id) ON DELETE CASCADE ON UPDATE CASCADE);
+create table compose(pno int , ino int, constraint pk_compose primary key (pno, ino), 
+constraint fk_pno foreign key (pno) references pizzas(pno) ON DELETE CASCADE ON UPDATE CASCADE, constraint fk_ino foreign key (ino) references ingredients(ino) ON DELETE CASCADE ON UPDATE CASCADE);
 ```
 
 La table de gestion des utilisateurs s'appelle **utilisateurs**.
