@@ -12,6 +12,7 @@ import dao.IngredientDAODatabase;
 import dao.PizzaDAODatabase;
 import dto.IngredientGet;
 import dto.IngredientName;
+import dto.PizzaFinalPrice;
 import dto.PizzaGet;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -56,14 +57,14 @@ public class PizzasRestAPI extends restAPI{
         }
 
         int id = Integer.parseInt(splits[1]);
-        PizzaGet i = dao.findById(id);
-        if (i == null) {
+        PizzaGet p = dao.findById(id);
+        if (p == null) {
             res.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
 
-        if(splits.length == 3 && splits[2].equals("name")){
-            IngredientName in = new IngredientName(i.getNom());
+        if(splits.length == 3 && splits[2].equals("prixfinal")){
+            PizzaFinalPrice in = new PizzaFinalPrice(p.prixFinal());
             out.print(objectMapper.writeValueAsString(in));
             return;
         }else if(splits.length == 3){
@@ -71,7 +72,7 @@ public class PizzasRestAPI extends restAPI{
             return;
         }
 
-        out.print(objectMapper.writeValueAsString(i));
+        out.print(objectMapper.writeValueAsString(p));
     }
 
     @Override

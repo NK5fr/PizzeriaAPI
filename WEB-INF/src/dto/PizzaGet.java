@@ -63,5 +63,11 @@ public class PizzaGet {
         this.id = id;
     }
 
-    
+    public int prixFinal(){
+        int total = prixBase;
+        for(IngredientGet ig : ingredients){
+            total += ig.getPrix();
+        }
+        return total;
+    }
 }
