@@ -6,14 +6,14 @@ La table de gestion des ingredient s'appelle **ingredients**.
 Elle a pour clé primaire **id**.
 
 ```sql
-create table ingredients(ino serial , nom text, prix int, constraint pk_ingredients primary key (ino));
+create table ingredients(ino serial , inom text, prix int, constraint pk_ingredients primary key (ino));
 ```
 
 La table de gestion des pizzas s'appelle **pizzas**.
 Elle a pour clé primaire **id**.
 
 ```sql
-create table pizzas(pno serial, nom text not null unique, pate text, prixBase int, constraint pk_pizzas primary key (pno));
+create table pizzas(pno serial, pnom text not null unique, pate text, prixBase int, constraint pk_pizzas primary key (pno));
 ```
 
 La table de gestion des ingrédients dans les pizzas s'appelle **compose**.

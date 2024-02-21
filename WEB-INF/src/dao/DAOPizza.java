@@ -13,6 +13,7 @@ public interface DAOPizza {
     public PizzaGet findById(int id);
     public void save(PizzaPost p);
     public void delete(int id);
-    public void saveIngredient(Integer i);
-    
+    public void saveIngredient(int id, int i);
+    public void deleteIngredient(int id, int i);
+    public int finalPrice(int id);
 }
