@@ -5,13 +5,16 @@ meta {
 }
 
 patch {
-  url: http://localhost:8080/pizzaland/pizzas/1
+  url: http://localhost:8080/pizzaland/pizzas/6
   body: json
   auth: none
 }
 
 body:json {
   {
-    "prixBase": 20
+    "prixBase": 50,
+    "ingredients":[
+      {"id":10}
+    ]
   }
 }

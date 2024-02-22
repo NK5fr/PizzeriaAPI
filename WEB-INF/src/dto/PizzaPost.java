@@ -7,12 +7,12 @@ public class PizzaPost {
     private String nom;
     private String pate;
     private int prixBase;
-    private List<Integer> ingredients;
+    private List<IngredientId> ingredients;
     
     public PizzaPost() {
     }
 
-    public PizzaPost(String nom, String pate, int prixBase, List<Integer> ingredients) {
+    public PizzaPost(String nom, String pate, int prixBase, List<IngredientId> ingredients) {
         this.nom = nom;
         this.pate = pate;
         this.prixBase = prixBase;
@@ -43,11 +43,11 @@ public class PizzaPost {
         this.prixBase = prixBase;
     }
 
-    public List<Integer> getIngredients() {
+    public List<IngredientId> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<Integer> ingredients) {
+    public void setIngredients(List<IngredientId> ingredients) {
         this.ingredients = ingredients;
     }
 

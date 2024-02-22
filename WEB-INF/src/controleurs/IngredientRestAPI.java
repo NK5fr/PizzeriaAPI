@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dao.DAOIngredient;
 import dao.IngredientDAODatabase;
 import dto.IngredientGet;
+import dto.IngredientId;
 import dto.IngredientName;
 import dto.IngredientPost;
 import jakarta.servlet.ServletException;
@@ -87,17 +88,27 @@ public class IngredientRestAPI extends restAPI{
 
         IngredientPost i = objectMapper.readValue(data.toString(), IngredientPost.class);
 
-        dao.save(i);
+        if(dao.save(i)){
+            IngredientId ii = dao.findHigherId();
+            IngredientGet last = dao.findById(ii.getId());
+            out.print(objectMapper.writeValueAsString(last));
+        }else{
+            res.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        }
 
-        List<IngredientGet> all = dao.findAll();
-        IngredientGet last = all.get(all.size()-1);
-        out.print(objectMapper.writeValueAsString(last));
+        
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
         String info = req.getPathInfo();
+
+        if (info == null || info.equals("/")) {
+            res.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
         String[] splits = info.split("/");
 
         if (splits.length != 2) {
@@ -106,7 +117,10 @@ public class IngredientRestAPI extends restAPI{
         }
 
         int id = Integer.parseInt(splits[1]);
-        dao.delete(id);
+        
+        if(!dao.delete(id)){
+            res.sendError(HttpServletResponse.SC_NOT_FOUND);
+        }
     }
 
     @Override

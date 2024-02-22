@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dto.IngredientGet;
+import dto.IngredientId;
 import dto.IngredientPost;
+import dto.PizzaId;
 import util.DS;
 
 public class IngredientDAODatabase implements DAOIngredient{
@@ -47,7 +49,7 @@ public class IngredientDAODatabase implements DAOIngredient{
     }
 
     @Override
-    public void save(IngredientPost i) {
+    public boolean save(IngredientPost i) {
         PreparedStatement ps = null;
         try(Connection con = DS.getConnection()){
             ps = con.prepareStatement("insert into ingredients(inom, prix) values(?,?)");
@@ -57,11 +59,13 @@ public class IngredientDAODatabase implements DAOIngredient{
         }catch(Exception e){
             System.out.println(ps);
             System.out.println(e.getMessage());
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void delete(int id) {
+    public boolean delete(int id) {
         PreparedStatement ps = null;
         try(Connection con = DS.getConnection()){
             ps = con.prepareStatement("delete from ingredients where ino = ?");
@@ -70,8 +74,25 @@ public class IngredientDAODatabase implements DAOIngredient{
         }catch(Exception e){
             System.out.println(ps);
             System.out.println(e.getMessage());
+            return false;
         }
-        
+        return true;
+    }
+
+    @Override
+    public IngredientId findHigherId() {
+        PreparedStatement ps = null;
+        IngredientId i = null;
+        try(Connection con = DS.getConnection()){
+            ps = con.prepareStatement("select max(ino) as id from ingredients");
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            i = new IngredientId(rs.getInt("id"));
+        }catch(Exception e){
+            System.out.println(ps);
+            System.out.println(e.getMessage());
+        }
+        return i;
     }
 
     
