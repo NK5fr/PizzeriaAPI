@@ -1,0 +1,22 @@
+meta {
+  name: noPriceSaveIngredients
+  type: http
+  seq: 6
+}
+
+post {
+  url: http://localhost:8080/pizzaland/ingredients
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "nom":"mozzarela",
+    "prix": 0
+  }
+}
+
+docs {
+  Permet de créer un ingrédient en fournissant son "nom" (chaîne de caractères) et son "prix" (integer)
+}
