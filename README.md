@@ -38,8 +38,24 @@ create table utilisateurs(id serial, nom text, mdp text, token text, constraints
 
 Voici l'ensemble des requêtes possibles sur les ingrédients :
 
+
 - curl -i -X GET http://localhost:8080/pizzaland/ingredients **permet de récupérer la liste des ingrédients**
+
+```
+Cette requête appelle le méthode doGet du controleur ingredient. Dans cette méthode on récupère le pathInfo
+```
+
+
+
 - curl -i -X GET http://localhost:8080/pizzaland/ingredients/{id} **permet de récupérer un ingrédient avec l'id voulu**
+
+
+
 - curl -i -X GET http://localhost:8080/pizzaland/ingredients/{id}/name **permet de récupérer le nom d'un ingrédient avec l'id voulu**
+
+
+
 - curl -i -H 'Content-Type: application/json' -d '{"nom":"{nom}","prix":{prix}}' -X PUT http://localhost:8080/pizzaland/ingredients **permet d'ajouter un ingrédient avec un nom et prix voulu**
+
+
 - curl -i -X DELETE http://localhost:8080/pizzaland/ingredients/{id} **permet de supprimer un ingrédient avec l'id voulu**

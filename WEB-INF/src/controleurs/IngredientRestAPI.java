@@ -11,7 +11,6 @@ import dao.DAOIngredient;
 import dao.IngredientDAODatabase;
 import dto.IngredientGet;
 import dto.IngredientId;
-import dto.IngredientName;
 import dto.IngredientPost;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -54,8 +53,7 @@ public class IngredientRestAPI extends restAPI{
         }
 
         if(splits.length == 3 && splits[2].equals("name")){
-            IngredientName in = new IngredientName(i.getNom());
-            out.print(objectMapper.writeValueAsString(in));
+            out.print(objectMapper.writeValueAsString("{ \"nom\":" + i.getNom() + "}"));
             return;
         }else if(splits.length == 3){
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
