@@ -68,27 +68,44 @@ public class PizzaDAODatabase implements DAOPizza{
     }
 
     @Override
-    public boolean save(PizzaPost p) {
+    public PizzaGet save(PizzaPost p) {
         PreparedStatement ps = null;
-        try(Connection con = DS.getConnection()){
-            ps = con.prepareStatement("insert into pizzas(pnom, pate, prixbase) values(?,?,?)");
+        PizzaGet result = null;
+        Connection con = null;
+        try{
+            con = DS.getConnection();
+            con.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
+            con.setAutoCommit(false);
+            ps = con.prepareStatement("insert into pizzas(pnom, pate, prixbase) values(?,?,?) returning pno");
             ps.setString(1, p.getNom());
             ps.setString(2, p.getPate());
             ps.setInt(3, p.getPrixBase());
-            ps.executeUpdate();
-            PizzaGet pi = findByName(p.getNom());
+            ResultSet rs = ps.executeQuery();
+            rs.next();
             for(IngredientId ii : p.getIngredients()){
                 ps = con.prepareStatement("insert into compose(pno, ino) values(?,?)");
-                ps.setInt(1, pi.getId());
+                ps.setInt(1, rs.getInt("pno"));
                 ps.setInt(2, ii.getId());
                 ps.executeUpdate();
             }
+            con.commit();
+            result = findById(rs.getInt("pno"));
         }catch(Exception e){
             System.out.println(ps);
             System.out.println(e.getMessage());
-            return false;
+            try {
+                con.rollback();
+            } catch (Exception e1) {
+                System.out.println(e1.getMessage());
+            }
+        }finally{
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
         }
-        return true;
+        return result ;
     }
 
     @Override
@@ -113,7 +130,10 @@ public class PizzaDAODatabase implements DAOPizza{
         try(Connection con = DS.getConnection()){
             ps = con.prepareStatement("delete from pizzas where pno = ?");
             ps.setInt(1, id);
-            ps.executeUpdate();
+            int nbAffectedLines = ps.executeUpdate();
+            if (nbAffectedLines == 0) {
+                throw new Exception("Aucune ligne supprimée");
+            }
         }catch(Exception e){
             System.out.println(ps);
             System.out.println(e.getMessage());
@@ -129,7 +149,10 @@ public class PizzaDAODatabase implements DAOPizza{
             ps = con.prepareStatement("delete from compose where pno = ? and ino = ?");
             ps.setInt(1, id);
             ps.setInt(2, ino);
-            ps.executeUpdate();
+            int nbAffectedLines = ps.executeUpdate();
+            if (nbAffectedLines == 0) {
+                throw new Exception("Aucune ligne supprimée");
+            }
         }catch(Exception e){
             System.out.println(ps);
             System.out.println(e.getMessage());
@@ -187,25 +210,37 @@ public class PizzaDAODatabase implements DAOPizza{
     }
 
     @Override
-    public PizzaGet findByName(String name) {
+    public boolean strictUpdate(int id, PizzaPost p) {
         PreparedStatement ps = null;
-        PizzaGet pizza = null;
+        PizzaGet actual = findById(id);
         try(Connection con = DS.getConnection()){
-            ps = con.prepareStatement("select pno from pizzas where pnom = ?");
-            ps.setString(1, name);
-            ResultSet rs = ps.executeQuery();
-            rs.next();
-            pizza = findById(rs.getInt("pno"));
+            ps = con.prepareStatement("update pizzas set pnom = ?, pate = ?, prixbase = ? where pno = ?");
+
+            ps.setString(1, p.getNom());
+            ps.setString(2, p.getPate());
+            ps.setInt(3, p.getPrixBase());
+            ps.setInt(4, id);
+            ps.executeUpdate();
+
+            ps = con.prepareStatement("delete from compose where pno = ?");
+            ps.setInt(1, id);
+            ps.executeUpdate();
+
+            if(p.getIngredients() != null){
+                for(IngredientId ii : p.getIngredients()){
+                    ps = con.prepareStatement("insert into compose(pno, ino) values(?,?)");
+                    ps.setInt(1, id);
+                    ps.setInt(2, ii.getId());
+                    ps.executeUpdate();
+                }
+            }
         }catch(Exception e){
             System.out.println(ps);
             System.out.println(e.getMessage());
+            return false;
         }
-        return pizza;
+        return true;
     }
 
-    
-
-    
-    
     
 }

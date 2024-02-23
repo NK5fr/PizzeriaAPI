@@ -42,7 +42,8 @@ Voici l'ensemble des requêtes possibles sur les ingrédients :
 - curl -i -X GET http://localhost:8080/pizzaland/ingredients **permet de récupérer la liste des ingrédients**
 
 ```
-Cette requête appelle le méthode doGet du controleur ingredient. Dans cette méthode on récupère le pathInfo
+Cette requête appelle le méthode doGet du controleur ingredient. Dans cette méthode on récupère le pathInfo qui dans notre cas est vide ou null.
+On récupère alors 
 ```
 
 

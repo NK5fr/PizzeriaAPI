@@ -9,6 +9,7 @@ import java.util.List;
 import dto.IngredientGet;
 import dto.IngredientId;
 import dto.IngredientPost;
+import dto.PizzaGet;
 import dto.PizzaId;
 import util.DS;
 
@@ -49,19 +50,21 @@ public class IngredientDAODatabase implements DAOIngredient{
     }
 
     @Override
-    public boolean save(IngredientPost i) {
+    public IngredientGet save(IngredientPost i) {
         PreparedStatement ps = null;
+        IngredientGet id = null;
         try(Connection con = DS.getConnection()){
-            ps = con.prepareStatement("insert into ingredients(inom, prix) values(?,?)");
+            ps = con.prepareStatement("insert into ingredients(inom, prix) values(?,?) returning ino");
             ps.setString(1, i.getNom());
             ps.setInt(2, i.getPrix());
-            ps.executeUpdate();
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            id = findById(rs.getInt("ino")); 
         }catch(Exception e){
             System.out.println(ps);
             System.out.println(e.getMessage());
-            return false;
         }
-        return true;
+        return id;
     }
 
     @Override
@@ -83,22 +86,53 @@ public class IngredientDAODatabase implements DAOIngredient{
     }
 
     @Override
-    public IngredientId findHigherId() {
+    public boolean update(int id, IngredientPost i) {
         PreparedStatement ps = null;
-        IngredientId i = null;
+        IngredientGet actual = findById(id);
         try(Connection con = DS.getConnection()){
-            ps = con.prepareStatement("select max(ino) as id from ingredients");
-            ResultSet rs = ps.executeQuery();
-            rs.next();
-            i = new IngredientId(rs.getInt("id"));
+            ps = con.prepareStatement("update ingredients set inom = ?, prix = ? where ino = ?");
+
+            if(i.getNom() != null){
+                ps.setString(1, i.getNom());
+            }else{
+                ps.setString(1, actual.getNom());
+            }
+
+            if(i.getPrix() != 0){
+                ps.setInt(2, i.getPrix());
+            }else{
+                ps.setInt(2, actual.getPrix());
+            }
+
+            ps.setInt(3, id);
+            ps.executeUpdate();
+            
         }catch(Exception e){
             System.out.println(ps);
             System.out.println(e.getMessage());
+            return false;
         }
-        return i;
+        return true;
     }
 
-    
-    
+    @Override
+    public boolean strictUpdate(int id, IngredientPost i) {
+        PreparedStatement ps = null;
+        try(Connection con = DS.getConnection()){
+            ps = con.prepareStatement("update ingredients set inom = ?, prix = ? where ino = ?");
+            
+            ps.setString(1, i.getNom());
+            ps.setInt(2, i.getPrix());
+            ps.setInt(3, id);
+            ps.executeUpdate();
+            
+        }catch(Exception e){
+            System.out.println(ps);
+            System.out.println(e.getMessage());
+            return false;
+        }
+        return true;
+    }
+
     
 }

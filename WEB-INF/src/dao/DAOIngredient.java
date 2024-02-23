@@ -10,8 +10,9 @@ public interface DAOIngredient {
 
     public List<IngredientGet> findAll();
     public IngredientGet findById(int id);
-    public IngredientId findHigherId();
-    public boolean save(IngredientPost i);
+    public IngredientGet save(IngredientPost i);
     public boolean delete(int id);
+    public boolean update(int id, IngredientPost i);
+    public boolean strictUpdate(int id, IngredientPost i);
 
 }
