@@ -1,0 +1,22 @@
+meta {
+  name: putIngredient
+  type: http
+  seq: 6
+}
+
+put {
+  url: http://localhost:8080/pizzaland/ingredients/1
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "nom":"tomate cerise",
+    "prix": 314
+  }
+}
+
+docs {
+  Permet de changer les attributs d'un ingrédient a en indiquant son ID et en mettant tous les champs des ingrédients (cad. nom (string) & prix (int)) dans le corps de la requête
+}

@@ -1,20 +1,21 @@
 meta {
-  name: patchPizzaPrice
+  name: patchPizza
   type: http
   seq: 6
 }
 
 patch {
-  url: http://localhost:8080/pizzaland/pizzas/6
+  url: http://localhost:8080/pizzaland/pizzas/10
   body: json
   auth: none
 }
 
 body:json {
   {
-    "prixBase": 50,
-    "ingredients":[
-      {"id":10}
-    ]
+    "prixBase": 500
   }
+}
+
+docs {
+  Permet de modifier le prix d'une pizza en fournissant l'id de la pizza et en mettant en corps de requête un objet JSON avec les champs que l'on veux changer (dans le cas des ingrédients, la liste entière est remplacée par la nouvelle liste)
 }
