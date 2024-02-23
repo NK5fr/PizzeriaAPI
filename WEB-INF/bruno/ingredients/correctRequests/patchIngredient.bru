@@ -1,0 +1,21 @@
+meta {
+  name: patchIngredient
+  type: http
+  seq: 7
+}
+
+patch {
+  url: http://localhost:8080/pizzaland/ingredients/1
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "nom": "tomato town"
+  }
+}
+
+docs {
+  Permet de changer un (ou plusieurs) attributs d'un ingrédoie,ts  a en indiquant son ID et en mettant tous les champs de ingrédients (cad. nom (string) & prix (int)) dans le corps de la requête
+}
