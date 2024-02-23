@@ -11,7 +11,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dao.DAOPizza;
 import dao.PizzaDAODatabase;
 import dto.IngredientId;
-import dto.PizzaFinalPrice;
 import dto.PizzaGet;
 import dto.PizzaId;
 import dto.PizzaPost;
@@ -130,8 +129,7 @@ public class PizzasRestAPI extends restAPI{
         }
 
         if(splits.length == 3 && splits[2].equals("prixfinal")){
-            PizzaFinalPrice in = new PizzaFinalPrice(p.prixFinal());
-            out.print(objectMapper.writeValueAsString(in));
+            out.print("{\"prixFinal\":" + p.prixFinal() + "}");
             return;
         }else if(splits.length == 3){
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
