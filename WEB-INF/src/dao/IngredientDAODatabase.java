@@ -70,7 +70,10 @@ public class IngredientDAODatabase implements DAOIngredient{
         try(Connection con = DS.getConnection()){
             ps = con.prepareStatement("delete from ingredients where ino = ?");
             ps.setInt(1, id);
-            ps.executeUpdate();
+            int nbAffectedLines = ps.executeUpdate();
+            if (nbAffectedLines == 0) {
+                throw new Exception("Aucune ligne supprimée");
+            }
         }catch(Exception e){
             System.out.println(ps);
             System.out.println(e.getMessage());
