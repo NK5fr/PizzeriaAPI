@@ -86,12 +86,11 @@ public class IngredientRestAPI extends restAPI{
 
         IngredientPost i = objectMapper.readValue(data.toString(), IngredientPost.class);
 
-        if(dao.save(i)){
-            IngredientId ii = dao.findHigherId();
-            IngredientGet last = dao.findById(ii.getId());
-            out.print(objectMapper.writeValueAsString(last));
-        }else{
+        IngredientGet result = dao.save(i);
+        if(result == null){
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        }else{
+            out.print(objectMapper.writeValueAsString(result));
         }
 
         
@@ -121,9 +120,90 @@ public class IngredientRestAPI extends restAPI{
         }
     }
 
+    
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        res.setContentType("application/json;charset=UTF-8");
+        PrintWriter out = res.getWriter();
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        StringBuilder data = new StringBuilder();
+        BufferedReader reader = req.getReader();
+
+        String line;
+        while ((line = reader.readLine()) != null) {
+            data.append(line);
+        }
+        
+        
+        String info = req.getPathInfo();
+
+        if (info == null || info.equals("/")) {
+            res.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
+        String[] splits = info.split("/");
+
+        if (splits.length != 2) {
+            res.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
+        int id = Integer.valueOf(splits[1]);
+        IngredientPost i = objectMapper.readValue(data.toString(), IngredientPost.class);
+
+        if(!dao.strictUpdate(id, i)){
+            res.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
+        
+        IngredientGet updated = dao.findById(id);
+        String jsonstring = objectMapper.writeValueAsString(updated);
+        out.print(jsonstring);
+    }
+
     @Override
     public void doPatch(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        res.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+        res.setContentType("application/json;charset=UTF-8");
+        PrintWriter out = res.getWriter();
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        StringBuilder data = new StringBuilder();
+        BufferedReader reader = req.getReader();
+
+        String line;
+        while ((line = reader.readLine()) != null) {
+            data.append(line);
+        }
+        
+        
+        String info = req.getPathInfo();
+
+        if (info == null || info.equals("/")) {
+            res.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
+        String[] splits = info.split("/");
+
+        if (splits.length != 2) {
+            res.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
+        int id = Integer.valueOf(splits[1]);
+        IngredientPost i = objectMapper.readValue(data.toString(), IngredientPost.class);
+
+        if(!dao.update(id, i)){
+            res.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
+        
+        IngredientGet updated = dao.findById(id);
+        String jsonstring = objectMapper.writeValueAsString(updated);
+        out.print(jsonstring);
     }
 
     

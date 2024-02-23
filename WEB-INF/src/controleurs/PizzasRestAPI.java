@@ -157,12 +157,13 @@ public class PizzasRestAPI extends restAPI{
 
         if (info == null || info.equals("/")) {
             PizzaPost p = objectMapper.readValue(data.toString(), PizzaPost.class);
-            if(!dao.save(p)){
+
+            PizzaGet result = dao.save(p);
+            if(result == null){
                 res.sendError(HttpServletResponse.SC_BAD_REQUEST);
                 return;
             }
-            PizzaGet last = dao.findByName(p.getNom());
-            String jsonstring = objectMapper.writeValueAsString(last);
+            String jsonstring = objectMapper.writeValueAsString(result);
             out.print(jsonstring);
         }else{
             String[] splits = info.split("/");
@@ -184,7 +185,44 @@ public class PizzasRestAPI extends restAPI{
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        res.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+        res.setContentType("application/json;charset=UTF-8");
+        PrintWriter out = res.getWriter();
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        StringBuilder data = new StringBuilder();
+        BufferedReader reader = req.getReader();
+
+        String line;
+        while ((line = reader.readLine()) != null) {
+            data.append(line);
+        }
+        
+        
+        String info = req.getPathInfo();
+
+        if (info == null || info.equals("/")) {
+            res.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
+        String[] splits = info.split("/");
+
+        if (splits.length != 2) {
+            res.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
+        int id = Integer.valueOf(splits[1]);
+        PizzaPost p = objectMapper.readValue(data.toString(), PizzaPost.class);
+
+        if(!dao.strictUpdate(id, p)){
+            res.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
+        
+        PizzaGet updated = dao.findById(id);
+        String jsonstring = objectMapper.writeValueAsString(updated);
+        out.print(jsonstring);
     }
     
     
