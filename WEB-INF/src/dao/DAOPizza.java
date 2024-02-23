@@ -10,7 +10,7 @@ public interface DAOPizza {
 
     public List<PizzaGet> findAll();
     public PizzaGet findById(int id);
-    public PizzaId findHigherId();
+    public PizzaGet findByName(String name);
     public boolean save(PizzaPost p);
     public boolean delete(int id);
     public boolean saveIngredient(int id, IngredientId i);

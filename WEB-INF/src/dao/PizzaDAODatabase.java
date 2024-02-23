@@ -76,7 +76,7 @@ public class PizzaDAODatabase implements DAOPizza{
             ps.setString(2, p.getPate());
             ps.setInt(3, p.getPrixBase());
             ps.executeUpdate();
-            PizzaId pi = findHigherId();
+            PizzaGet pi = findByName(p.getNom());
             for(IngredientId ii : p.getIngredients()){
                 ps = con.prepareStatement("insert into compose(pno, ino) values(?,?)");
                 ps.setInt(1, pi.getId());
@@ -187,14 +187,15 @@ public class PizzaDAODatabase implements DAOPizza{
     }
 
     @Override
-    public PizzaId findHigherId() {
+    public PizzaGet findByName(String name) {
         PreparedStatement ps = null;
-        PizzaId pizza = null;
+        PizzaGet pizza = null;
         try(Connection con = DS.getConnection()){
-            ps = con.prepareStatement("select max(pno) as id from pizzas");
+            ps = con.prepareStatement("select pno from pizzas where pnom = ?");
+            ps.setString(1, name);
             ResultSet rs = ps.executeQuery();
             rs.next();
-            pizza = new PizzaId(rs.getInt("id"));
+            pizza = findById(rs.getInt("pno"));
         }catch(Exception e){
             System.out.println(ps);
             System.out.println(e.getMessage());

@@ -164,8 +164,7 @@ public class PizzasRestAPI extends restAPI{
                 res.sendError(HttpServletResponse.SC_BAD_REQUEST);
                 return;
             }
-            PizzaId pi = dao.findHigherId();
-            PizzaGet last = dao.findById(pi.getId());
+            PizzaGet last = dao.findByName(p.getNom());
             String jsonstring = objectMapper.writeValueAsString(last);
             out.print(jsonstring);
         }else{
