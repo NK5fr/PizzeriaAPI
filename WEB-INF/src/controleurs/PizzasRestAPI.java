@@ -12,7 +12,6 @@ import dao.DAOPizza;
 import dao.PizzaDAODatabase;
 import dto.IngredientId;
 import dto.PizzaGet;
-import dto.PizzaId;
 import dto.PizzaPost;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
