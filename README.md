@@ -26,11 +26,14 @@ constraint fk_pno foreign key (pno) references pizzas(pno) ON DELETE CASCADE ON 
 ```
 
 La table de gestion des utilisateurs s'appelle **utilisateurs**.
-Elle a pour clés primaire **id**.
+Elle a pour clé primaire **unom**.
 
 ```sql
-create table utilisateurs(id serial, nom text, mdp text, token text, constraints pk_utilisateurs primary key (id));
+create table utilisateurs(unom text, mdp text, constraints pk_utilisateurs primary key (nom));
 ```
+
+La table de gestion des commandes s'appelle **commandes**
+Elle a pour clé primaire **cno**
 
 ## REQUETES
 
