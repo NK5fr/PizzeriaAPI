@@ -160,7 +160,7 @@ public class PizzasRestAPI extends restAPI{
 
             PizzaGet result = dao.save(p);
             if(result == null){
-                res.sendError(HttpServletResponse.SC_BAD_REQUEST);
+                res.sendError(HttpServletResponse.SC_CONFLICT);
                 return;
             }
             String jsonstring = objectMapper.writeValueAsString(result);
@@ -174,7 +174,7 @@ public class PizzasRestAPI extends restAPI{
             int id = Integer.valueOf(splits[1]);
             IngredientId ii = objectMapper.readValue(data.toString(), IngredientId.class);
             if(!dao.saveIngredient(id, ii)){
-                res.sendError(HttpServletResponse.SC_BAD_REQUEST);
+                res.sendError(HttpServletResponse.SC_CONFLICT);
                 return;
             }
             PizzaGet updated = dao.findById(id);

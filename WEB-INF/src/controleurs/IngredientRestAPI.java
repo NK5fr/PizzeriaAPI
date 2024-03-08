@@ -88,7 +88,7 @@ public class IngredientRestAPI extends restAPI{
 
         IngredientGet result = dao.save(i);
         if(result == null){
-            res.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            res.sendError(HttpServletResponse.SC_CONFLICT);
         }else{
             out.print(objectMapper.writeValueAsString(result));
         }

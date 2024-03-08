@@ -63,3 +63,51 @@ On récupère alors
 
 
 - curl -i -X DELETE http://localhost:8080/pizzaland/ingredients/{id} **permet de supprimer un ingrédient avec l'id voulu**
+
+## Ingredients
+
+### Tables
+
+Le gestion des ingrédients se fait grâce à une unique table.
+Cette table s'appelle **ingredients**.
+
+```sql
+create table ingredients(ino serial , inom text, prix int, constraint pk_ingredients primary key (ino));
+```
+
+La table **ingredients** contient 3 attribut :
+
+- ino, c'est l'identifiant de l'ingrédient. Il s'agit d'un numéro 
+automatique qui sert également de clé primaire.
+
+- inom, c'est le nom de type text de l'ingrédient.
+
+- prix, c'est le prix de type int de l'ingrédient
+
+### Liste Requêtes
+
+| URI  | Opération | Réponse |
+| :--- |:---------:| ----:|
+| /ingredients | GET | liste des ingrédients |
+| /ingredients/{id} | GET | l'ingrédient ou 404 |
+| /ingredients/{id}/name | GET | le nom de l'ingrédient ou 404 |
+| /ingredients | POST | l'ingrédient ou 409 |
+| /ingredients/{id} | DELETE | rien ou 404 |
+| /ingredients/{id} | PUT | l'ingrédient ou 404 |
+| /ingredients/{id} | PATCH | l'ingrédient ou 404 |
+
+### Détail Requêtes
+
+#### GET /ingredients
+
+#### GET /ingredients/{id}
+
+#### GET /ingredients/{id}/name
+
+#### POST /ingredients
+
+#### DELETE /ingredients/{id}
+
+#### PUT /ingredients/{id}
+
+#### PATCH /ingredients/{id}
