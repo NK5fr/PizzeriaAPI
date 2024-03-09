@@ -53,10 +53,16 @@ public class PizzasRestAPI extends restAPI{
         }
 
         int id = Integer.valueOf(splits[1]);
+
+        if(dao.findById(id) == null){
+            res.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
+
         PizzaPost p = objectMapper.readValue(data.toString(), PizzaPost.class);
 
         if(!dao.update(id, p)){
-            res.sendError(HttpServletResponse.SC_NOT_FOUND);
+            res.sendError(HttpServletResponse.SC_CONFLICT);
             return;
         }
         
@@ -173,8 +179,9 @@ public class PizzasRestAPI extends restAPI{
             }
             int id = Integer.valueOf(splits[1]);
             IngredientId ii = objectMapper.readValue(data.toString(), IngredientId.class);
+
             if(!dao.saveIngredient(id, ii)){
-                res.sendError(HttpServletResponse.SC_CONFLICT);
+                res.sendError(HttpServletResponse.SC_NOT_FOUND);
                 return;
             }
             PizzaGet updated = dao.findById(id);
@@ -213,10 +220,16 @@ public class PizzasRestAPI extends restAPI{
         }
 
         int id = Integer.valueOf(splits[1]);
+
+        if(dao.findById(id) == null){
+            res.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
+        
         PizzaPost p = objectMapper.readValue(data.toString(), PizzaPost.class);
 
         if(!dao.strictUpdate(id, p)){
-            res.sendError(HttpServletResponse.SC_NOT_FOUND);
+            res.sendError(HttpServletResponse.SC_CONFLICT);
             return;
         }
         

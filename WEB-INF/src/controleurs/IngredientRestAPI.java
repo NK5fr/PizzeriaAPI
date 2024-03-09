@@ -152,10 +152,16 @@ public class IngredientRestAPI extends restAPI{
         }
 
         int id = Integer.valueOf(splits[1]);
+
+        if(dao.findById(id) == null){
+            res.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
+
         IngredientPost i = objectMapper.readValue(data.toString(), IngredientPost.class);
 
         if(!dao.strictUpdate(id, i)){
-            res.sendError(HttpServletResponse.SC_NOT_FOUND);
+            res.sendError(HttpServletResponse.SC_CONFLICT);
             return;
         }
         
@@ -194,10 +200,16 @@ public class IngredientRestAPI extends restAPI{
         }
 
         int id = Integer.valueOf(splits[1]);
+
+        if(dao.findById(id) == null){
+            res.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
+
         IngredientPost i = objectMapper.readValue(data.toString(), IngredientPost.class);
 
         if(!dao.update(id, i)){
-            res.sendError(HttpServletResponse.SC_NOT_FOUND);
+            res.sendError(HttpServletResponse.SC_CONFLICT);
             return;
         }
         

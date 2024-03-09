@@ -165,7 +165,12 @@ public class PizzaDAODatabase implements DAOPizza{
     public boolean update(int id, PizzaPost p) {
         PreparedStatement ps = null;
         PizzaGet actual = findById(id);
-        try(Connection con = DS.getConnection()){
+        Connection con = null;
+        boolean result = true;
+        try{
+            con = DS.getConnection();
+            con.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
+            con.setAutoCommit(false);
             ps = con.prepareStatement("update pizzas set pnom = ?, pate = ?, prixbase = ? where pno = ?");
 
             if(p.getNom() != null){
@@ -201,19 +206,36 @@ public class PizzaDAODatabase implements DAOPizza{
                     ps.executeUpdate();
                 }
             }
+            con.commit();
         }catch(Exception e){
             System.out.println(ps);
             System.out.println(e.getMessage());
-            return false;
+            try {
+                con.rollback();
+            } catch (Exception e1) {
+                System.out.println(e1.getMessage());
+            }
+            result = false;
+        }finally{
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
         }
-        return true;
+        return result;
     }
 
     @Override
     public boolean strictUpdate(int id, PizzaPost p) {
         PreparedStatement ps = null;
         PizzaGet actual = findById(id);
-        try(Connection con = DS.getConnection()){
+        Connection con = null;
+        boolean result = true;
+        try{
+            con = DS.getConnection();
+            con.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
+            con.setAutoCommit(false);
             ps = con.prepareStatement("update pizzas set pnom = ?, pate = ?, prixbase = ? where pno = ?");
 
             ps.setString(1, p.getNom());
@@ -234,12 +256,24 @@ public class PizzaDAODatabase implements DAOPizza{
                     ps.executeUpdate();
                 }
             }
+            con.commit();
         }catch(Exception e){
             System.out.println(ps);
             System.out.println(e.getMessage());
-            return false;
+            try {
+                con.rollback();
+            } catch (Exception e1) {
+                System.out.println(e1.getMessage());
+            }
+            result = false;
+        }finally{
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
         }
-        return true;
+        return result;
     }
 
     
