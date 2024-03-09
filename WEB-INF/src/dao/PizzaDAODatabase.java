@@ -82,6 +82,7 @@ public class PizzaDAODatabase implements DAOPizza{
             ps.setInt(3, p.getPrixBase());
             ResultSet rs = ps.executeQuery();
             rs.next();
+            if (p.getIngredients() == null) p.setIngredients(new ArrayList<>());
             for(IngredientId ii : p.getIngredients()){
                 ps = con.prepareStatement("insert into compose(pno, ino) values(?,?)");
                 ps.setInt(1, rs.getInt("pno"));
@@ -109,19 +110,20 @@ public class PizzaDAODatabase implements DAOPizza{
     }
 
     @Override
-    public boolean saveIngredient(int id, IngredientId i) {
+    public PizzaGet saveIngredient(int id, IngredientId i) {
         PreparedStatement ps = null;
+        PizzaGet result = null;
         try(Connection con = DS.getConnection()){
             ps = con.prepareStatement("insert into compose(pno, ino) values(?,?)");
             ps.setInt(1, id);
             ps.setInt(2, i.getId());
             ps.executeUpdate();
+            result = findById(id);
         }catch(Exception e){
             System.out.println(ps);
             System.out.println(e.getMessage());
-            return false;
         }
-        return true;
+        return result;
     }
 
     @Override
@@ -162,11 +164,11 @@ public class PizzaDAODatabase implements DAOPizza{
     }
 
     @Override
-    public boolean update(int id, PizzaPost p) {
+    public PizzaGet update(int id, PizzaPost p) {
         PreparedStatement ps = null;
         PizzaGet actual = findById(id);
         Connection con = null;
-        boolean result = true;
+        PizzaGet result = null;
         try{
             con = DS.getConnection();
             con.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
@@ -207,6 +209,7 @@ public class PizzaDAODatabase implements DAOPizza{
                 }
             }
             con.commit();
+            result = findById(id);
         }catch(Exception e){
             System.out.println(ps);
             System.out.println(e.getMessage());
@@ -215,7 +218,6 @@ public class PizzaDAODatabase implements DAOPizza{
             } catch (Exception e1) {
                 System.out.println(e1.getMessage());
             }
-            result = false;
         }finally{
             try {
                 con.close();
@@ -227,11 +229,11 @@ public class PizzaDAODatabase implements DAOPizza{
     }
 
     @Override
-    public boolean strictUpdate(int id, PizzaPost p) {
+    public PizzaGet strictUpdate(int id, PizzaPost p) {
         PreparedStatement ps = null;
         PizzaGet actual = findById(id);
         Connection con = null;
-        boolean result = true;
+        PizzaGet result = null;
         try{
             con = DS.getConnection();
             con.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
@@ -257,6 +259,7 @@ public class PizzaDAODatabase implements DAOPizza{
                 }
             }
             con.commit();
+            result = findById(id);
         }catch(Exception e){
             System.out.println(ps);
             System.out.println(e.getMessage());
@@ -265,7 +268,6 @@ public class PizzaDAODatabase implements DAOPizza{
             } catch (Exception e1) {
                 System.out.println(e1.getMessage());
             }
-            result = false;
         }finally{
             try {
                 con.close();

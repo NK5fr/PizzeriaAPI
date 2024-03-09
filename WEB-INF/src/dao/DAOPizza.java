@@ -12,8 +12,8 @@ public interface DAOPizza {
     public PizzaGet findById(int id);
     public PizzaGet save(PizzaPost p);
     public boolean delete(int id);
-    public boolean saveIngredient(int id, IngredientId i);
+    public PizzaGet saveIngredient(int id, IngredientId i);
     public boolean deleteIngredient(int pno, int ino);
-    public boolean update(int id, PizzaPost p);
-    public boolean strictUpdate(int id, PizzaPost p);
+    public PizzaGet update(int id, PizzaPost p);
+    public PizzaGet strictUpdate(int id, PizzaPost p);
 }

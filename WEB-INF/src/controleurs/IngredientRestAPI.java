@@ -160,12 +160,14 @@ public class IngredientRestAPI extends restAPI{
 
         IngredientPost i = objectMapper.readValue(data.toString(), IngredientPost.class);
 
-        if(!dao.strictUpdate(id, i)){
+        IngredientGet updated = dao.strictUpdate(id, i);
+
+        if(updated == null){
             res.sendError(HttpServletResponse.SC_CONFLICT);
             return;
         }
         
-        IngredientGet updated = dao.findById(id);
+
         String jsonstring = objectMapper.writeValueAsString(updated);
         out.print(jsonstring);
     }
@@ -208,12 +210,13 @@ public class IngredientRestAPI extends restAPI{
 
         IngredientPost i = objectMapper.readValue(data.toString(), IngredientPost.class);
 
-        if(!dao.update(id, i)){
+        IngredientGet updated = dao.update(id, i);
+
+        if(updated == null){
             res.sendError(HttpServletResponse.SC_CONFLICT);
             return;
         }
         
-        IngredientGet updated = dao.findById(id);
         String jsonstring = objectMapper.writeValueAsString(updated);
         out.print(jsonstring);
     }

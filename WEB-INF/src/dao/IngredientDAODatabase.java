@@ -86,9 +86,10 @@ public class IngredientDAODatabase implements DAOIngredient{
     }
 
     @Override
-    public boolean update(int id, IngredientPost i) {
+    public IngredientGet update(int id, IngredientPost i) {
         PreparedStatement ps = null;
         IngredientGet actual = findById(id);
+        IngredientGet result = null;
         try(Connection con = DS.getConnection()){
             ps = con.prepareStatement("update ingredients set inom = ?, prix = ? where ino = ?");
 
@@ -106,18 +107,18 @@ public class IngredientDAODatabase implements DAOIngredient{
 
             ps.setInt(3, id);
             ps.executeUpdate();
-            
+            result = findById(id);
         }catch(Exception e){
             System.out.println(ps);
             System.out.println(e.getMessage());
-            return false;
         }
-        return true;
+        return result;
     }
 
     @Override
-    public boolean strictUpdate(int id, IngredientPost i) {
+    public IngredientGet strictUpdate(int id, IngredientPost i) {
         PreparedStatement ps = null;
+        IngredientGet result = null;
         try(Connection con = DS.getConnection()){
             ps = con.prepareStatement("update ingredients set inom = ?, prix = ? where ino = ?");
             
@@ -125,13 +126,12 @@ public class IngredientDAODatabase implements DAOIngredient{
             ps.setInt(2, i.getPrix());
             ps.setInt(3, id);
             ps.executeUpdate();
-            
+            result = findById(id);
         }catch(Exception e){
             System.out.println(ps);
             System.out.println(e.getMessage());
-            return false;
         }
-        return true;
+        return result;
     }
 
     

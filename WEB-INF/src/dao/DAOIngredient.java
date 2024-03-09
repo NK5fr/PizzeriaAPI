@@ -12,7 +12,7 @@ public interface DAOIngredient {
     public IngredientGet findById(int id);
     public IngredientGet save(IngredientPost i);
     public boolean delete(int id);
-    public boolean update(int id, IngredientPost i);
-    public boolean strictUpdate(int id, IngredientPost i);
+    public IngredientGet update(int id, IngredientPost i);
+    public IngredientGet strictUpdate(int id, IngredientPost i);
 
 }
