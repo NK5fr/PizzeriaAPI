@@ -1301,6 +1301,25 @@ Codes de retour :
 
 ## Token
 
-### Authentification
+### Récupération du token
 
-Un utilisateur peut s'**identifier** sur la page login.html. Il reste ensuite connecté le temps de la session.
+Il est possible de récupérer un token à l'ENDPOINT **/users/token** avec son **nom** et **mdp**. Comme cela :
+
+>/users/token?nom=<nom>&mdp=<mdp>
+
+Le Token est alors retouné dans le **body** sous la forme d'un string. Il est aussi trouvable dans le **header** :
+
+>Token : <token>
+
+Code de retour :
+
+| Code  | Description |
+| :--- | ---------:|
+| 200 OK | L'utilisateur existe et le token est renvoyé |
+| 401 Unauthorized | L'utilisateur est incorrect |
+
+### Utilisation du token
+
+Le header est nécesaire pour toutes les requêtes **hors GET**. Pour utiliser le token il faut le placer dans le header avec le mot clé **Bearer** :
+
+>Authorization:Bearer <token>

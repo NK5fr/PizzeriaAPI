@@ -21,19 +21,29 @@ public class getToken extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        res.setContentType("text/html;charset=UTF-8");
+        res.setContentType("application/json;charset=UTF-8");
         PrintWriter out = res.getWriter();
         
-        HttpSession session = req.getSession(true);
+        String nom = Escape.escape(req.getParameter("nom"));
+        String mdp = req.getParameter("mdp");
 
-        String nom = (String) session.getAttribute("nom");
-
-        if(nom == null){
-            res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-            return;
+        PreparedStatement ps = null;
+        try (Connection con = DS.getConnection()) {
+            ps = con.prepareStatement("select * from clients where nom = ? and mdp = md5(?)");
+            ps.setString(1, nom);
+            ps.setString(2, mdp);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                String token = JwtManager.createJWT();
+                out.println(token);
+                res.addHeader("Token", token);
+            }else{
+                res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+            }
+        } catch (Exception e) {
+            System.out.println(ps);
+            System.out.println(e.getMessage());
         }
-
-        out.println(JwtManager.createJWT());
 
         
     }

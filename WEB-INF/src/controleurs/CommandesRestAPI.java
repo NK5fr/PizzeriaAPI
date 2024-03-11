@@ -21,6 +21,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import util.TokenValidation;
 
 @WebServlet("/commandes/*")
 public class CommandesRestAPI extends restAPI{
@@ -29,6 +30,14 @@ public class CommandesRestAPI extends restAPI{
 
     @Override
     public void doPatch(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
+        String authorization = req.getHeader("Authorization");
+
+        if(!TokenValidation.verifToken(authorization)){
+            res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
+        }
+
         res.setContentType("application/json;charset=UTF-8");
         PrintWriter out = res.getWriter();
         ObjectMapper objectMapper = new ObjectMapper();
@@ -79,6 +88,13 @@ public class CommandesRestAPI extends restAPI{
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
+        String authorization = req.getHeader("Authorization");
+
+        if(!TokenValidation.verifToken(authorization)){
+            res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
+        }
 
         String info = req.getPathInfo();
 
@@ -151,6 +167,14 @@ public class CommandesRestAPI extends restAPI{
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
+        String authorization = req.getHeader("Authorization");
+
+        if(!TokenValidation.verifToken(authorization)){
+            res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
+        }
+
         res.setContentType("application/json;charset=UTF-8");
         PrintWriter out = res.getWriter();
         ObjectMapper objectMapper = new ObjectMapper();
@@ -199,6 +223,14 @@ public class CommandesRestAPI extends restAPI{
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
+        String authorization = req.getHeader("Authorization");
+
+        if(!TokenValidation.verifToken(authorization)){
+            res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
+        }
+
         res.setContentType("application/json;charset=UTF-8");
         PrintWriter out = res.getWriter();
         ObjectMapper objectMapper = new ObjectMapper();

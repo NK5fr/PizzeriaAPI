@@ -17,6 +17,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import util.TokenValidation;
 
 @WebServlet("/ingredients/*")
 public class IngredientRestAPI extends restAPI{
@@ -65,6 +66,14 @@ public class IngredientRestAPI extends restAPI{
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
+        String authorization = req.getHeader("Authorization");
+
+        if(!TokenValidation.verifToken(authorization)){
+            res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
+        }
+
         res.setContentType("application/json;charset=UTF-8");
         PrintWriter out = res.getWriter();
         ObjectMapper objectMapper = new ObjectMapper();
@@ -99,6 +108,13 @@ public class IngredientRestAPI extends restAPI{
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
+        String authorization = req.getHeader("Authorization");
+
+        if(!TokenValidation.verifToken(authorization)){
+            res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
+        }
+
         String info = req.getPathInfo();
 
         if (info == null || info.equals("/")) {
@@ -124,6 +140,14 @@ public class IngredientRestAPI extends restAPI{
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
+        String authorization = req.getHeader("Authorization");
+
+        if(!TokenValidation.verifToken(authorization)){
+            res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
+        }
+
         res.setContentType("application/json;charset=UTF-8");
         PrintWriter out = res.getWriter();
         ObjectMapper objectMapper = new ObjectMapper();
@@ -174,6 +198,14 @@ public class IngredientRestAPI extends restAPI{
 
     @Override
     public void doPatch(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
+        String authorization = req.getHeader("Authorization");
+
+        if(!TokenValidation.verifToken(authorization)){
+            res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
+        }
+
         res.setContentType("application/json;charset=UTF-8");
         PrintWriter out = res.getWriter();
         ObjectMapper objectMapper = new ObjectMapper();
