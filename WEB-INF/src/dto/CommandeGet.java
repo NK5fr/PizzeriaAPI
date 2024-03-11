@@ -7,13 +7,13 @@ public class CommandeGet {
     
     private int id;
     private String client;
-    private Date date;
+    private String date;
     private List<PizzaQte> pizzas;
 
     public CommandeGet() {
     }
     
-    public CommandeGet(int id, String client, Date date, List<PizzaQte> pizzas) {
+    public CommandeGet(int id, String client, String date, List<PizzaQte> pizzas) {
         this.id = id;
         this.client = client;
         this.date = date;
@@ -36,11 +36,11 @@ public class CommandeGet {
         this.client = client;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

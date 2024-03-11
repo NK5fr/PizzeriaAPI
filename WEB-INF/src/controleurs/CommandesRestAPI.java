@@ -18,9 +18,11 @@ import dto.PizzaGet;
 import dto.PizzaId;
 import dto.PizzaPost;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+@WebServlet("/commandes/*")
 public class CommandesRestAPI extends restAPI{
 
     private DAOCommande dao = new CommandeDAODatabase();

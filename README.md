@@ -743,7 +743,7 @@ La gestion des commandes se fait grâce à une trois tables.
 La première table s'appelle **clients**, elle contient la liste des clients.
 
 ```sql
-create table clients(cnom text, mdp text not null, token text, constraint pk_clients primary key (cnom));
+create table clients(cnom text, mdp text not null, constraint pk_clients primary key (cnom));
 ```
 
 La table **clients** contient 3 attribut :
@@ -751,8 +751,6 @@ La table **clients** contient 3 attribut :
 - cnom, c'est le nom de type text du client. Il sert de clé primaire.
 
 - mdp, c'est le mot de passe de type text du client. Il ne peut pas être null.
-
-- token, c'est le token de type text du client.
 
 
 La deuxième table s'appelle **commandes**, elle contient la liste des commandes.
@@ -1300,3 +1298,9 @@ Codes de retour :
 | 404 Not Found | La commande n'existe pas |
 | 409 Conflict | Le nom du client est incorrect |
 
+
+## Token
+
+### Authentification
+
+Un utilisateur peut s'**identifier** sur la page login.html. Il reste ensuite connecté le temps de la session.

@@ -77,7 +77,7 @@ public class CommandeDAODatabase implements DAOCommande{
                     PizzaGet p = new PizzaDAODatabase().findById(rsp.getInt("pno"));
                     listePizzas.add(PizzaQte.valueOf(p, rsp.getInt("qte")));
                 }
-                CommandeGet cg = new CommandeGet(rsc.getInt("cno"), rsc.getString("cnom"), rsc.getDate("date"), listePizzas);
+                CommandeGet cg = new CommandeGet(rsc.getInt("cno"), rsc.getString("cnom"), rsc.getDate("date").toString(), listePizzas);
                 listeCommandes.add(cg);
             }
         }catch(Exception e){
@@ -104,7 +104,7 @@ public class CommandeDAODatabase implements DAOCommande{
                 PizzaGet p = new PizzaDAODatabase().findById(rsp.getInt("pno"));
                 listePizzas.add(PizzaQte.valueOf(p, rsp.getInt("qte")));
             }
-            cg = new CommandeGet(rsc.getInt("cno"), rsc.getString("cnom"), rsc.getDate("date"), listePizzas);
+            cg = new CommandeGet(rsc.getInt("cno"), rsc.getString("cnom"), rsc.getDate("date").toString(), listePizzas);
         }catch(Exception e){
             System.out.println(ps);
             System.out.println(e.getMessage());
