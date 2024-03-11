@@ -1,0 +1,23 @@
+meta {
+  name: saveCommandes
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8080/pizzaland/commandes
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+      "client": "Farid",
+      "pizzas": [
+          {
+              "id": 3,
+              "qte": 2
+          }
+      ]
+  }
+}

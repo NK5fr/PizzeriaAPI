@@ -1,0 +1,24 @@
+meta {
+  name: putPizza
+  type: http
+  seq: 9
+}
+
+put {
+  url: http://localhost:8080/pizzaland/pizzas/2
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+      "nom": "regina",
+      "pate": "goat",
+      "prixBase": 150,
+      "ingredients": [
+          {
+              "id": 10
+          }
+      ]
+  }
+}

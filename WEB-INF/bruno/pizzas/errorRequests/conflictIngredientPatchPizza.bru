@@ -1,0 +1,17 @@
+meta {
+  name: conflictIngredientPatchPizza
+  type: http
+  seq: 12
+}
+
+patch {
+  url: http://localhost:8080/pizzaland/pizzas/2
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "nom": "roubaisienne"
+  }
+}
