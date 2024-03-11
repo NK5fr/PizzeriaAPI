@@ -231,7 +231,6 @@ public class PizzaDAODatabase implements DAOPizza{
     @Override
     public PizzaGet strictUpdate(int id, PizzaPost p) {
         PreparedStatement ps = null;
-        PizzaGet actual = findById(id);
         Connection con = null;
         PizzaGet result = null;
         try{
