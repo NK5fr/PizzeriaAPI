@@ -287,7 +287,7 @@ En cas de suppréssion ou modification d'un ingrédient ou d'une pizza, le réf�
 | :--- |:---------:| ----:|
 | /pizzas | GET | liste des pizzas |
 | /pizzas/{id} | GET | la pizza ou 404 |
-| /pizzas/{id}/prixFinal | GET | le nom de la pizza ou 404 |
+| /pizzas/{id}/prixfinal | GET | le nom de la pizza ou 404 |
 | /pizzas | POST | la pizza ou 409 |
 | /pizzas/{id} | POST | la pizza ou 404 |
 | /pizzas/{id} | DELETE | rien ou 404 |
@@ -389,7 +389,7 @@ Codes de retour :
 | 200 OK | La requête s'est bien effectuée |
 | 404 Not Found | La pizza n'existe pas |
 
-#### GET /pizzas/{id}/prixFinal
+#### GET /pizzas/{id}/prixfinal
 
 Cette requête permet de récupérer le prix final d'une pizza avec l'id voulu.
 
@@ -424,7 +424,7 @@ Voici un exemple de retour avec **id = 1** :
 
 ```json
 {
-    "prixFinal": 53
+    "prixfinal": 53
 }
 ```
 
@@ -793,7 +793,7 @@ En cas de suppréssion ou modification d'une commande ou d'une pizza, le référ
 | :--- |:---------:| ----:|
 | /commandes | GET | liste des commandes |
 | /commandes/{id} | GET | la commande ou 404 |
-| /commandes/{id}/prixFinal | GET | le prix final de la commande ou 404 |
+| /commandes/{id}/prixfinal | GET | le prix final de la commande ou 404 |
 | /commandes | POST | la commande ou 409 |
 | /commandes/{id} | POST | la commande ou 404 |
 | /commandes/{id} | DELETE | rien ou 404 |
@@ -920,7 +920,7 @@ Codes de retour :
 | 404 Not Found | La commande n'existe pas |
 
 
-#### GET /commandes/{id}/prixFinal
+#### GET /commandes/{id}/prixfinal
 
 Cette requête permet de récupérer le prix final d'une commande avec l'id voulu.
 
@@ -963,7 +963,7 @@ Voici un exemple de retour avec **id = 1** :
 
 ```json
 {
-    "prixFinal": 106
+    "prixfinal": 106
 }
 ```
 

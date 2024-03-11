@@ -1,0 +1,18 @@
+meta {
+  name: conflictSavePizzaCommandes
+  type: http
+  seq: 8
+}
+
+post {
+  url: http://localhost:8080/pizzaland/commandes/1000
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+      "id": 5,
+      "qte": 5
+  }
+}

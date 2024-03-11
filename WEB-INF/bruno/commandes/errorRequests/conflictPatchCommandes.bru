@@ -1,0 +1,17 @@
+meta {
+  name: conflictPatchCommandes
+  type: http
+  seq: 11
+}
+
+patch {
+  url: http://localhost:8080/pizzaland/commandes/100/
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+      "client": "Jengiz"
+  }
+}

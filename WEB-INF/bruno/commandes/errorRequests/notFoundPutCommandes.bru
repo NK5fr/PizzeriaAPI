@@ -1,11 +1,11 @@
 meta {
-  name: saveCommandes
+  name: notFoundPutCommandes
   type: http
-  seq: 2
+  seq: 7
 }
 
-post {
-  url: http://localhost:8080/pizzaland/commandes
+put {
+  url: http://localhost:8080/pizzaland/commandes/10000/
   body: json
   auth: none
 }
@@ -15,7 +15,7 @@ body:json {
       "client": "Jengiz",
       "pizzas": [
           {
-              "id": 10,
+              "id": 1,
               "qte": 2
           }
       ]
