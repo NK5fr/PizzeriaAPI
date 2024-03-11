@@ -1,0 +1,24 @@
+meta {
+  name: conflictPutPizza
+  type: http
+  seq: 10
+}
+
+put {
+  url: http://localhost:8080/pizzaland/pizzas/2
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+      "nom": "roubaisienne",
+      "pate": "goat",
+      "prixBase": 150,
+      "ingredients": [
+          {
+              "id": 10
+          }
+      ]
+  }
+}

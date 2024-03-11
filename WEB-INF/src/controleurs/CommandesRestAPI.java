@@ -155,7 +155,7 @@ public class CommandesRestAPI extends restAPI{
         }
 
         if(splits.length == 3 && splits[2].equals("prixfinal")){
-            out.print("{\"prixFinal\":" + c.prixFinal() + "}");
+            out.print("{\"prixfinal\":" + c.prixFinal() + "}");
             return;
         }else if(splits.length == 3){
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);

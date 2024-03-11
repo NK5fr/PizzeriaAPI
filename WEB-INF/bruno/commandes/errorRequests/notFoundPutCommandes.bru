@@ -1,0 +1,23 @@
+meta {
+  name: notFoundPutCommandes
+  type: http
+  seq: 7
+}
+
+put {
+  url: http://localhost:8080/pizzaland/commandes/10000/
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+      "client": "Jengiz",
+      "pizzas": [
+          {
+              "id": 1,
+              "qte": 2
+          }
+      ]
+  }
+}

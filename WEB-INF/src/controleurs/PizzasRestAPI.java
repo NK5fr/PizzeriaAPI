@@ -151,7 +151,7 @@ public class PizzasRestAPI extends restAPI{
         }
 
         if(splits.length == 3 && splits[2].equals("prixfinal")){
-            out.print("{\"prixFinal\":" + p.prixFinal() + "}");
+            out.print("{\"prixfinal\":" + p.prixFinal() + "}");
             return;
         }else if(splits.length == 3){
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
