@@ -1,17 +1,13 @@
 meta {
-  name: savePizzas
+  name: conflictSavePizzas
   type: http
-  seq: 3
+  seq: 2
 }
 
 post {
   url: http://localhost:8080/pizzaland/pizzas
   body: json
   auth: none
-}
-
-auth:bearer {
-  token: 
 }
 
 body:json {
@@ -30,9 +26,5 @@ body:json {
 }
 
 docs {
-  Permet de créer une pizza en fournissant:
-    "nom" (chaîne de caractères),
-    "pate" (chaînede caractères),
-    "prixBase" (integer),
-    "ingredients" (liste d'integer correspondant aux ID d'ingrédients)
+  Requête test: saveIngredientPizza -> ingrédient déjà présent dans la pizza   
 }

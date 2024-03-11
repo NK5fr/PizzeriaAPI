@@ -1,0 +1,18 @@
+meta {
+  name: conflictPutIngredient
+  type: http
+  seq: 6
+}
+
+put {
+  url: http://localhost:8080/pizzaland/ingredients/1
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "nom":"chevre",
+    "prix": 5
+  }
+}
