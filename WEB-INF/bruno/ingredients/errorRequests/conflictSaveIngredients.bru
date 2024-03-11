@@ -1,5 +1,5 @@
 meta {
-  name: badRequestNoBodysaveIngredients
+  name: conflictSaveIngredients
   type: http
   seq: 5
 }
@@ -8,6 +8,13 @@ post {
   url: http://localhost:8080/pizzaland/ingredients
   body: json
   auth: none
+}
+
+body:json {
+  {
+      "nom": "caviar",
+      "prix": 1
+  }
 }
 
 docs {

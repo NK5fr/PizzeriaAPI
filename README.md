@@ -750,7 +750,7 @@ La table **clients** contient 3 attribut :
 
 - cnom, c'est le nom de type text du client. Il sert de clé primaire.
 
-- mdp, c'est le mot de passe de type text du client. Il ne peut pas être null.
+- mdp, c'est le mot de passe de type text du client crypté en MD5. Il ne peut pas être null.
 
 
 La deuxième table s'appelle **commandes**, elle contient la liste des commandes.

@@ -53,7 +53,7 @@ public class IngredientRestAPI extends restAPI{
         }
 
         if(splits.length == 3 && splits[2].equals("name")){
-            out.print(objectMapper.writeValueAsString("{ \"nom\":" + i.getNom() + "}"));
+            out.print("{\"nom\":\"" + i.getNom() + "\"}");
             return;
         }else if(splits.length == 3){
             res.sendError(HttpServletResponse.SC_BAD_REQUEST);
