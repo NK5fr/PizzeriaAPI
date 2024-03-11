@@ -4,11 +4,11 @@ import java.util.List;
 
 public class PizzaGet {
     
-    private int id;
-    private String nom;
-    private String pate;
-    private int prixBase;
-    private List<IngredientGet> ingredients;
+    protected int id;
+    protected String nom;
+    protected String pate;
+    protected int prixBase;
+    protected List<IngredientGet> ingredients;
     
     public PizzaGet() {
     }

@@ -8,7 +8,7 @@ Le gestion des ingrédients se fait grâce à une unique table.
 Cette table s'appelle **ingredients**, elle contient la liste des ingrédients.
 
 ```sql
-create table ingredients(ino serial , inom unique not null text, prix int, constraint pk_ingredients primary key (ino));
+create table ingredients(ino serial , inom text unique not null, prix int, constraint pk_ingredients primary key (ino));
 ```
 
 La table **ingredients** contient 3 attribut :
@@ -250,7 +250,7 @@ La gestion des pizzas se fait grâce à une deux tables.
 La première table s'appelle **pizzas**, elle contient la liste des pizzas.
 
 ```sql
-create table pizzas(pno serial, pnom unique not null text , pate text, prixBase int, constraint pk_pizzas primary key (pno));
+create table pizzas(pno serial, pnom text unique not null , pate text, prixBase int, constraint pk_pizzas primary key (pno));
 ```
 
 La table **pizzas** contient 4 attribut :
@@ -743,7 +743,7 @@ La gestion des commandes se fait grâce à une trois tables.
 La première table s'appelle **clients**, elle contient la liste des clients.
 
 ```sql
-create table clients(cnom text, mdp not null text, token text, constraint pk_clients primary key (cnom));
+create table clients(cnom text, mdp text not null, token text, constraint pk_clients primary key (cnom));
 ```
 
 La table **clients** contient 3 attribut :
