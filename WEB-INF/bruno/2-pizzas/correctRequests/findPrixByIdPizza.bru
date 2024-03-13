@@ -10,6 +10,10 @@ get {
   auth: none
 }
 
+assert {
+  res.status: eq 200
+}
+
 docs {
   Permet de récupérer le prix d'une pizza en fournissant l'id de la pizza suivi de la chaine de charactère "prixfinal"
 }

@@ -5,9 +5,13 @@ meta {
 }
 
 get {
-  url: http://localhost:8080/pizzaland/ingredients
+  url: http://localhost:8080/pizzaland/ingredients?token={{token}}
   body: none
   auth: none
+}
+
+query {
+  token: {{token}}
 }
 
 assert {

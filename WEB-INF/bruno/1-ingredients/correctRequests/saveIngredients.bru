@@ -7,7 +7,11 @@ meta {
 post {
   url: http://localhost:8080/pizzaland/ingredients
   body: json
-  auth: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
 }
 
 body:json {
@@ -15,6 +19,10 @@ body:json {
     "nom":"mozzarellaa",
     "prix": 50
   }
+}
+
+assert {
+  res.status: eq 200
 }
 
 docs {

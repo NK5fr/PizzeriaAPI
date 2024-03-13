@@ -7,13 +7,21 @@ meta {
 patch {
   url: http://localhost:8080/pizzaland/ingredients/1
   body: json
-  auth: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
 }
 
 body:json {
   {
     "nom": "huitre"
   }
+}
+
+assert {
+  res.status: eq 200
 }
 
 docs {

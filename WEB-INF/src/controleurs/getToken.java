@@ -26,6 +26,7 @@ public class getToken extends HttpServlet{
         
         String nom = Escape.escape(req.getParameter("nom"));
         String mdp = req.getParameter("mdp");
+        System.out.println(nom + " " + mdp);
 
         PreparedStatement ps = null;
         try (Connection con = DS.getConnection()) {
@@ -33,9 +34,10 @@ public class getToken extends HttpServlet{
             ps.setString(1, nom);
             ps.setString(2, mdp);
             ResultSet rs = ps.executeQuery();
+            System.out.println(nom + " " + mdp);
             if(rs.next()){
                 String token = JwtManager.createJWT();
-                out.println(token);
+                out.print(token);
                 res.addHeader("Token", token);
             }else{
                 res.sendError(HttpServletResponse.SC_UNAUTHORIZED);

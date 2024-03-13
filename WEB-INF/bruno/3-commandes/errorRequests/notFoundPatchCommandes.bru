@@ -7,11 +7,19 @@ meta {
 patch {
   url: http://localhost:8080/pizzaland/commandes/1/
   body: json
-  auth: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
 }
 
 body:json {
   {
       "client": "armand"
   }
+}
+
+assert {
+  res.status: eq 404
 }

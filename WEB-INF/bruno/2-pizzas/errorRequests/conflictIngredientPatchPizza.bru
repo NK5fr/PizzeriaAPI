@@ -7,11 +7,24 @@ meta {
 patch {
   url: http://localhost:8080/pizzaland/pizzas/2
   body: json
-  auth: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
 }
 
 body:json {
   {
-    "nom": "roubaisienne"
+    "nom": "roubaisienne",
+    "ingredients": [
+      {
+        "id": 800
+      }
+    ]
   }
+}
+
+assert {
+  res.status: eq 409
 }

@@ -7,13 +7,21 @@ meta {
 post {
   url: http://localhost:8080/pizzaland/pizzas/1000
   body: json
-  auth: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
 }
 
 body:json {
   {
     "id":7
   }
+}
+
+assert {
+  res.status: eq 404
 }
 
 docs {

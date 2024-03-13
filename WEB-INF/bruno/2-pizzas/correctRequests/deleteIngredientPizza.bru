@@ -5,9 +5,17 @@ meta {
 }
 
 delete {
-  url: http://localhost:8080/pizzaland/pizzas/2/10
+  url: http://localhost:8080/pizzaland/pizzas/2/8
   body: none
-  auth: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+assert {
+  res.status: eq 200
 }
 
 docs {

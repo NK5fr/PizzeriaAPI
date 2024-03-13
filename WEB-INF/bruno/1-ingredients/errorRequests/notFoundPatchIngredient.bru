@@ -7,11 +7,19 @@ meta {
 patch {
   url: http://localhost:8080/pizzaland/ingredients/1099
   body: json
-  auth: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
 }
 
 body:json {
   {
     "nom": "tomato town"
   }
+}
+
+assert {
+  res.status: eq 404
 }

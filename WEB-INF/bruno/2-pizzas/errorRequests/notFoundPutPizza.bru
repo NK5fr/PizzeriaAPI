@@ -7,7 +7,15 @@ meta {
 put {
   url: http://localhost:8080/pizzaland/pizzas/20000
   body: json
-  auth: none
+  auth: bearer
+}
+
+query {
+  : 
+}
+
+auth:bearer {
+  token: {{token}}
 }
 
 body:json {
@@ -21,4 +29,8 @@ body:json {
           }
       ]
   }
+}
+
+assert {
+  res.status: eq 404
 }

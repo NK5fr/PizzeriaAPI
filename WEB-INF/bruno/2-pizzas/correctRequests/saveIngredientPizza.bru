@@ -5,15 +5,23 @@ meta {
 }
 
 post {
-  url: http://localhost:8080/pizzaland/pizzas/2
+  url: http://localhost:8080/pizzaland/pizzas/1
   body: json
-  auth: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
 }
 
 body:json {
   {
-    "id":7
+    "id":4
   }
+}
+
+assert {
+  res.status: eq 200
 }
 
 docs {

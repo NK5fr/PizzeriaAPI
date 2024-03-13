@@ -7,5 +7,13 @@ meta {
 delete {
   url: http://localhost:8080/pizzaland/commandes/100/5
   body: none
-  auth: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+assert {
+  res.status: eq 404
 }

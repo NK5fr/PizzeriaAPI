@@ -5,16 +5,24 @@ meta {
 }
 
 patch {
-  url: http://localhost:8080/pizzaland/pizzas/2000
+  url: http://localhost:8080/pizzaland/pizzas/1
   body: json
-  auth: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
 }
 
 body:json {
   {
     "ingredients": [
       {"id": 1},
-      {"id": 100}
+      {"id": 2000}
     ]
   }
+}
+
+assert {
+  res.status: eq 409
 }
