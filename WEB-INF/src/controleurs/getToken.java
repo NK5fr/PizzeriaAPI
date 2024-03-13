@@ -29,7 +29,7 @@ public class getToken extends HttpServlet{
 
         PreparedStatement ps = null;
         try (Connection con = DS.getConnection()) {
-            ps = con.prepareStatement("select * from clients where nom = ? and mdp = md5(?)");
+            ps = con.prepareStatement("select * from clients where cnom = ? and mdp = md5(?)");
             ps.setString(1, nom);
             ps.setString(2, mdp);
             ResultSet rs = ps.executeQuery();
