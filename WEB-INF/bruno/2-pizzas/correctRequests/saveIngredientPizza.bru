@@ -1,0 +1,29 @@
+meta {
+  name: saveIngredientPizza
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:8080/pizzaland/pizzas/1
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "id":4
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+
+docs {
+  Permet d'ajouter un ingrédients à une pizza en indiquant l'ID de la pizza, et en mettant dans le corps de la requête la liste l'id d'un ingrédient qu'on souhaite ajouter a la pizza
+}

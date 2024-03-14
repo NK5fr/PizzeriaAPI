@@ -1,0 +1,25 @@
+meta {
+  name: conflictPatchIngredient
+  type: http
+  seq: 8
+}
+
+patch {
+  url: http://localhost:8080/pizzaland/ingredients/1
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "nom": "chevre"
+  }
+}
+
+assert {
+  res.status: eq 409
+}

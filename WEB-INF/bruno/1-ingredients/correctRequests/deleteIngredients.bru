@@ -1,0 +1,23 @@
+meta {
+  name: deleteIngredients
+  type: http
+  seq: 5
+}
+
+delete {
+  url: http://localhost:8080/pizzaland/ingredients/9
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+assert {
+  res.status: eq 200
+}
+
+docs {
+  Permet de supprimer un ingrédient en fournissant son ID
+}

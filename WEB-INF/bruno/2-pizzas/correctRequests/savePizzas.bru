@@ -1,0 +1,41 @@
+meta {
+  name: savePizzas
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8080/pizzaland/pizzas
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "nom": "prot",
+    "pate": "creatine-pate",
+    "prixBase": 100,
+    "ingredients": [
+      {"id": 3},
+      {"id": 4},
+      {"id": 2},
+      {"id": 8}
+    ]
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+
+docs {
+  Permet de créer une pizza en fournissant:
+    "nom" (chaîne de caractères),
+    "pate" (chaînede caractères),
+    "prixBase" (integer),
+    "ingredients" (liste d'integer correspondant aux ID d'ingrédients)
+}

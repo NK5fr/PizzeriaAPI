@@ -1,0 +1,31 @@
+meta {
+  name: putCommandes
+  type: http
+  seq: 8
+}
+
+put {
+  url: http://localhost:8080/pizzaland/commandes/1/
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+      "client": "Farid",
+      "pizzas": [
+          {
+              "id": 2,
+              "qte": 24
+          }
+      ]
+  }
+}
+
+assert {
+  res.status: eq 200
+}

@@ -1,0 +1,26 @@
+meta {
+  name: notFoundPutIngredient
+  type: http
+  seq: 5
+}
+
+put {
+  url: http://localhost:8080/pizzaland/ingredients/1499
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "nom":"chevre",
+    "prix": 5
+  }
+}
+
+assert {
+  res.status: eq 404
+}

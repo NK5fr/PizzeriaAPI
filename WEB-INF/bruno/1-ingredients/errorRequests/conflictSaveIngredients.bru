@@ -1,0 +1,30 @@
+meta {
+  name: conflictSaveIngredients
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:8080/pizzaland/ingredients
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+      "nom": "caviar",
+      "prix": 1
+  }
+}
+
+assert {
+  res.status: eq 409
+}
+
+docs {
+  Requête test: saveIngredient -> aucun corps
+}

@@ -1,0 +1,20 @@
+meta {
+  name: notFoundFindByIdIngredient
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:8080/pizzaland/ingredients/1000
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 404
+}
+
+
+docs {
+  Requête test: findByIdIngredient -> ingrédient n'existant pas dans la liste 
+}

@@ -1,0 +1,19 @@
+meta {
+  name: findAllPizzas
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:8080/pizzaland/pizzas
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+}
+
+docs {
+  Permet de récupérer l'ensemble des pizzas
+}

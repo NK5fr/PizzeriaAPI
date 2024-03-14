@@ -1,0 +1,23 @@
+meta {
+  name: notFoundIngredientDeleteIngredientPizza
+  type: http
+  seq: 6
+}
+
+delete {
+  url: http://localhost:8080/pizzaland/pizzas/1/997
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+assert {
+  res.status: eq 404
+}
+
+docs {
+  Requête test: deleteIngredientPizza -> essaye de supprimer un ingrédient d'une pizza inexistante   
+}

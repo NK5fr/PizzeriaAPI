@@ -1,0 +1,25 @@
+meta {
+  name: patchCommandes
+  type: http
+  seq: 9
+}
+
+patch {
+  url: http://localhost:8080/pizzaland/commandes/1/
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+      "client": "Jengiz"
+  }
+}
+
+assert {
+  res.status: eq 200
+}

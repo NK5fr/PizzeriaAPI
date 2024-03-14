@@ -1,0 +1,23 @@
+meta {
+  name: deletePizzas
+  type: http
+  seq: 4
+}
+
+delete {
+  url: http://localhost:8080/pizzaland/pizzas/4
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+assert {
+  res.status: eq 200
+}
+
+docs {
+  Permet de supprimer une pizza en fournissant son ID
+}

@@ -1,0 +1,19 @@
+meta {
+  name: badRequestFindByIdIngredient
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:8080/pizzaland/ingredients/1000/name
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 404
+}
+
+docs {
+  Requête test: findByIdIngredient -> un mauvais format 
+}

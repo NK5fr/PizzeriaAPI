@@ -1,0 +1,25 @@
+meta {
+  name: notFoundPatchIngredient
+  type: http
+  seq: 7
+}
+
+patch {
+  url: http://localhost:8080/pizzaland/ingredients/1099
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "nom": "tomato town"
+  }
+}
+
+assert {
+  res.status: eq 404
+}

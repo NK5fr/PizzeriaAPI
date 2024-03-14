@@ -1,0 +1,29 @@
+meta {
+  name: notFoundIngredientSaveIngredientPizza
+  type: http
+  seq: 8
+}
+
+post {
+  url: http://localhost:8080/pizzaland/pizzas/2
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "id":999
+  }
+}
+
+assert {
+  res.status: eq 404
+}
+
+docs {
+  Requête test: saveIngredientPizza -> essaye d'ajouter un ingrédient inexistant a une pizza   
+}

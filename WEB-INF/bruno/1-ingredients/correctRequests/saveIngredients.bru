@@ -1,0 +1,32 @@
+meta {
+  name: saveIngredients
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:8080/pizzaland/ingredients
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "nom":"mozzarellaa",
+    "prix": 50
+  }
+}
+
+assert {
+  res.status: eq 200
+}
+
+docs {
+  Permet de créer un ingrédient en fournissant:
+    "nom" (chaîne de caractères),
+    "prix" (integer)
+}

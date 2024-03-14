@@ -1,0 +1,38 @@
+meta {
+  name: conflictSavePizzas
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8080/pizzaland/pizzas
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "nom": "prot",
+    "pate": "creatine-pate",
+    "prixBase": 100,
+    "ingredients": [
+      {"id": 3},
+      {"id": 4},
+      {"id": 2},
+      {"id": 8},
+      {"id": 10}
+    ]
+  }
+}
+
+assert {
+  res.status: eq 409
+}
+
+docs {
+  Requête test: saveIngredientPizza -> ingrédient déjà présent dans la pizza   
+}
