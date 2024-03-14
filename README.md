@@ -289,7 +289,7 @@ En cas de suppréssion ou modification d'un ingrédient ou d'une pizza, le réf�
 | /pizzas/{id} | GET | la pizza ou 404 |
 | /pizzas/{id}/prixfinal | GET | le nom de la pizza ou 404 |
 | /pizzas | POST | la pizza ou 409 |
-| /pizzas/{id} | POST | la pizza ou 404 |
+| /pizzas/{id} | POST | la pizza, 404 ou 409 |
 | /pizzas/{id} | DELETE | rien ou 404 |
 | /pizzas/{id}/{idIngredient} | DELETE | la pizza ou 404 |
 | /pizzas/{id} | PUT | la pizza, 404 ou 409|
@@ -563,7 +563,8 @@ Codes de retour :
 | Code  | Description |
 | :--- | ---------:|
 | 200 OK | La requête s'est bien effectuée |
-| 404 Not Found | La pizza ou l'ingrédient n'existe pas |
+| 404 Not Found | La pizza n'existe pas |
+| 409 Conflict | Un ingrédient est invalide |
 
 #### DELETE /pizzas/{id}
 
@@ -661,7 +662,7 @@ Codes de retour :
 | :--- | ---------:|
 | 200 OK | La requête s'est bien effectuée |
 | 404 Not Found | La pizza n'existe pas |
-| 409 Conflict | Le nom de la pizza est null ou déjà existant ou un des ingrédients n'existe pas |
+| 409 Conflict | Le nom de la pizza est null ou déjà existant ou un des ingrédients est invalide |
 
 
 #### PATCH /pizzas/{id}
@@ -732,7 +733,7 @@ Codes de retour :
 | :--- | ---------:|
 | 200 OK | La requête s'est bien effectuée |
 | 404 Not Found | La pizza n'existe pas |
-| 409 Conflict | Le nom de la pizza est null ou déjà existant ou un des ingrédients n'existe pas |
+| 409 Conflict | Le nom de la pizza est null ou déjà existant ou un des ingrédients est invalide |
 
 ## Commandes
 
@@ -795,7 +796,7 @@ En cas de suppréssion ou modification d'une commande ou d'une pizza, le référ
 | /commandes/{id} | GET | la commande ou 404 |
 | /commandes/{id}/prixfinal | GET | le prix final de la commande ou 404 |
 | /commandes | POST | la commande ou 409 |
-| /commandes/{id} | POST | la commande ou 404 |
+| /commandes/{id} | POST | la commande, 404 ou 409 |
 | /commandes/{id} | DELETE | rien ou 404 |
 | /commandes/{id}/{idPizza} | DELETE | la commande ou 404 |
 | /commandes/{id} | PUT | la commande, 404 ou 409|
@@ -1118,7 +1119,8 @@ Codes de retour :
 | Code  | Description |
 | :--- | ---------:|
 | 200 OK | La requête s'est bien effectuée |
-| 404 Not Found | La commande ou la pizza n'existe pas |
+| 404 Not Found | La pizza n'existe pas |
+| 409 Conflict | La pizza est invalide |
 
 #### DELETE /commandes/{id}
 
@@ -1210,7 +1212,7 @@ Codes de retour :
 | :--- | ---------:|
 | 200 OK | La requête s'est bien effectuée |
 | 404 Not Found | La commande n'existe pas |
-| 409 Conflict | Le nom du client est incorrect |
+| 409 Conflict | Le nom du client est incorrect ou une pizza est invalide |
 
 #### PATCH /commandes/{id}
 
@@ -1296,7 +1298,7 @@ Codes de retour :
 | :--- | ---------:|
 | 200 OK | La requête s'est bien effectuée |
 | 404 Not Found | La commande n'existe pas |
-| 409 Conflict | Le nom du client est incorrect |
+| 409 Conflict | Le nom du client est incorrect ou une pizza est invalide|
 
 
 ## Token

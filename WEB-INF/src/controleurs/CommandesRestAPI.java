@@ -207,12 +207,18 @@ public class CommandesRestAPI extends restAPI{
                 return;
             }
             int id = Integer.valueOf(splits[1]);
+
+            if(dao.findById(id) == null){
+                res.sendError(HttpServletResponse.SC_NOT_FOUND);
+                return;
+            }
+
             PizzaId pi = objectMapper.readValue(data.toString(), PizzaId.class);
 
             CommandeGet updated = dao.savePizza(id, pi);
 
             if(updated == null){
-                res.sendError(HttpServletResponse.SC_NOT_FOUND);
+                res.sendError(HttpServletResponse.SC_CONFLICT);
                 return;
             }
 

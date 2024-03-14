@@ -203,12 +203,18 @@ public class PizzasRestAPI extends restAPI{
                 return;
             }
             int id = Integer.valueOf(splits[1]);
+
+            if(dao.findById(id) == null){
+                res.sendError(HttpServletResponse.SC_NOT_FOUND);
+                return;
+            }
+
             IngredientId ii = objectMapper.readValue(data.toString(), IngredientId.class);
 
             PizzaGet updated = dao.saveIngredient(id, ii);
 
             if(updated == null){
-                res.sendError(HttpServletResponse.SC_NOT_FOUND);
+                res.sendError(HttpServletResponse.SC_CONFLICT);
                 return;
             }
 
