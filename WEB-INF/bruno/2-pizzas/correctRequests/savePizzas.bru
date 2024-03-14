@@ -28,6 +28,10 @@ body:json {
   }
 }
 
+vars:post-response {
+  latestPizza: res.body.id
+}
+
 assert {
   res.status: eq 200
 }

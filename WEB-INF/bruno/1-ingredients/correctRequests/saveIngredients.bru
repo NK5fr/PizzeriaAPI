@@ -21,6 +21,10 @@ body:json {
   }
 }
 
+vars:post-response {
+  latestIngredient: res.body.id
+}
+
 assert {
   res.status: eq 200
 }
