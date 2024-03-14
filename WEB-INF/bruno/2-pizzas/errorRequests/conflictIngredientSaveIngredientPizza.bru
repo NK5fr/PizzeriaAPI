@@ -1,5 +1,5 @@
 meta {
-  name: notFoundIngredientSaveIngredientPizza
+  name: conflictIngredientSaveIngredientPizza
   type: http
   seq: 8
 }
@@ -21,7 +21,7 @@ body:json {
 }
 
 assert {
-  res.status: eq 404
+  res.status: eq 409
 }
 
 docs {

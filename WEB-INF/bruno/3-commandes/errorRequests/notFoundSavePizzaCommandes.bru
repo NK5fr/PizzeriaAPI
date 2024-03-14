@@ -1,0 +1,26 @@
+meta {
+  name: notFoundSavePizzaCommandes
+  type: http
+  seq: 12
+}
+
+post {
+  url: http://localhost:8080/pizzaland/commandes/100000
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+      "id": 1,
+      "qte": 5
+  }
+}
+
+assert {
+  res.status: eq 404
+}
